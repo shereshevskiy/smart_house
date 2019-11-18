@@ -2,6 +2,8 @@ from __future__ import absolute_import, unicode_literals
 from celery import task
 from django.core.mail import send_mail
 
+from django.conf import settings
+
 import requests
 
 from .models import Setting
@@ -11,8 +13,8 @@ def smart_home_manager():
     # Здесь ваш код для проверки условий
 
     # подготовка запроса на данные, запрос и продобработка данных
-    headers = {"Authorization": f"Bearer {SMART_HOME_ACCESS_TOKEN}"}
-    get_response = requests.get(SMART_HOME_API_URL, headers=headers)
+    headers = {"Authorization": f"Bearer {settings.SMART_HOME_ACCESS_TOKEN}"}
+    get_response = requests.get(settings.SMART_HOME_API_URL, headers=headers)
     controllers = {item['name']: item for item in get_response.json()['data']}
 
     # initialization
@@ -91,13 +93,13 @@ def smart_home_manager():
             [("air_conditioner", False)]
         )
 
-    post_response = requests.post(SMART_HOME_API_URL, headers=headers, json=data)
+    post_response = requests.post(settings.SMART_HOME_API_URL, headers=headers, json=data)
 
     if events_for_email:
         subject = f"NOTE: Smart house message"
         message = f"Events: {events_for_email}. \nDone: {data}"
         email_from = "vrn.realty@gmail.com"
-        emails_to = ["dmitry.sh777@gmail.com"]
+        emails_to = [settings.EMAIL_RECEPIENT]
         send_mail(
             subject,
             message,
