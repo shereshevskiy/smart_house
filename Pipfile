@@ -11,7 +11,7 @@ factory-boy = "*"
 responses = "*"
 
 [packages]
-requests = "==2.18.4"
+requests = "==2.20.0"
 celery = "==4.1.1"
 Django = "==2.0"
 redis = "==2.10.6"
