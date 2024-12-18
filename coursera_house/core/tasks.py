@@ -11,7 +11,7 @@ from .models import Setting
 
 @task()
 def smart_home_manager():
-    # Здесь ваш код для проверки условий
+    # код для проверки условий
 
     # подготовка запроса на данные, запрос и продобработка данных
     headers = {"Authorization": f"Bearer {settings.SMART_HOME_ACCESS_TOKEN}"}
